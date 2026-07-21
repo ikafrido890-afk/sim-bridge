@@ -1,6 +1,6 @@
 
 name: sim_bridge
-description: SIM Bridge - Manage your second phone from iPhone. Remote SMS, Calls & Data.
+description: SIM Bridge _ Manage your second phone from iPhone. Remote SMS, Calls & Data.
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -19,4 +19,4 @@ dependencies:
   shared_preferences: ^2.2.2
 
 flutter:
-  uses-material-design: true
+  uses_material_design: true
