@@ -10,18 +10,11 @@ jobs:
           flutter-version: '3.22.0'
           channel: 'stable'
       - run: |
-          mkdir -p /tmp/b/lib
-          cp pubspec.yaml /tmp/b/
-          cp lib/main.dart /tmp/b/lib/
           flutter create . --platforms android --overwrite
-          cp /tmp/b/pubspec.yaml ./
-          cp /tmp/b/lib/main.dart lib/
           sed -i 's/flutter.minSdkVersion/23/g' android/app/build.gradle
-          echo "flutter.minSdkVersion=23" >> android/local.properties
-          echo "flutter.minSdkVersion=23" >> android/gradle.properties
           flutter pub get
           flutter build apk --release
       - uses: actions/upload-artifact@v4
         with:
-          name: sim-bridge-apk
+          name: apk
           path: build/app/outputs/flutter-apk/app-release.apk
