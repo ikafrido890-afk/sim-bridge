@@ -13,8 +13,8 @@ jobs:
           mkdir -p /tmp/b/lib
           cp pubspec.yaml /tmp/b/
           cp lib/main.dart /tmp/b/lib/
-          flutter create. --platforms android --overwrite
-          cp /tmp/b/pubspec.yaml.
+          flutter create . --platforms android --overwrite
+          cp /tmp/b/pubspec.yaml ./
           cp /tmp/b/lib/main.dart lib/
           sed -i 's/flutter.minSdkVersion/23/g' android/app/build.gradle
           echo "flutter.minSdkVersion=23" >> android/local.properties
