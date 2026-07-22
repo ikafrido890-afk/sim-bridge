@@ -1,24 +1,31 @@
-name: Build APK
-on: [push]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.22.0'
-          channel: 'stable'
-      - name: Fix SDK for telephony plugin
-        run: |
-          flutter create. --platforms android --overwrite
-          sed -i 's/flutter.minSdkVersion/23/g' android/app/build.gradle
-          sed -i 's/minSdkVersion 16/minSdkVersion 23/g' android/app/build.gradle
-          sed -i 's/minSdkVersion 19/minSdkVersion 23/g' android/app/build.gradle
-      - run: |
-          flutter pub get
-          flutter build apk --release
-      - uses: actions/upload-artifact@v4
-        with:
-          name: SIM-Bridge-APK
-          path: build/app/outputs/flutter-apk/app-release.apk
+import 'package:flutter/material.dart';
+void main() { runApp(const MyApp()); }
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Mobile Bridge',
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Mobile Bridge'),
+          backgroundColor: Colors.blue,
+          centerTitle: true,
+        ),
+        body: const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.phonelink_ring, size: 100, color: Colors.blue),
+              SizedBox(height: 20),
+              Text('Mobile Bridge', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+              SizedBox(height: 10),
+              Text('Ready to Connect!', style: TextStyle(fontSize: 18, color: Colors.grey)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
