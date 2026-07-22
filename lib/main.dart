@@ -1,7 +1,24 @@
-import 'package:flutter/material.dart';
-void main(){ runApp(SIMBridgeApp()); }
-class SIMBridgeApp extends StatelessWidget{
-  @override Widget build(BuildContext c){
-    return MaterialApp(debugShowCheckedModeBanner:false,home:Scaffold(backgroundColor:Color(0xFF0A0A0A),body:Center(child:Column(mainAxisAlignment:MainAxisAlignment.center,children:[Icon(Icons.sim_card,size:80,color:Colors.white),SizedBox(height:20),Text("SIM BRIDGE",style:TextStyle(color:Colors.white,fontSize:28,fontWeight:FontWeight.bold)),Text("App is Ready!",style:TextStyle(color:Colors.grey)),SizedBox(height:40),ElevatedButton(onPressed:(){},child:Text("HOST MODE - Android")),SizedBox(height:10),ElevatedButton(onPressed:(){},child:Text("CLIENT MODE - iPhone"))]))));
-  }
-}
+name: Build APK
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.0'
+          channel: 'stable'
+      - name: Fix SDK for telephony plugin
+        run: |
+          flutter create. --platforms android --overwrite
+          sed -i 's/flutter.minSdkVersion/23/g' android/app/build.gradle
+          sed -i 's/minSdkVersion 16/minSdkVersion 23/g' android/app/build.gradle
+          sed -i 's/minSdkVersion 19/minSdkVersion 23/g' android/app/build.gradle
+      - run: |
+          flutter pub get
+          flutter build apk --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SIM-Bridge-APK
+          path: build/app/outputs/flutter-apk/app-release.apk
