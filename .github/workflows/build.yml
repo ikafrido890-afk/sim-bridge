@@ -9,12 +9,12 @@ jobs:
         with:
           flutter-version: '3.22.0'
           channel: 'stable'
-      - name: Build APK
+      - name: Fix and Build
         run: |
+          flutter create. --project-name mobile_bridge --platforms android --overwrite
           flutter pub get
           flutter build apk --release
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: Mobile-Bridge-APK
           path: build/app/outputs/flutter-apk/app-release.apk
