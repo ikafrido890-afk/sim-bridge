@@ -9,16 +9,10 @@ jobs:
         with:
           flutter-version: '3.22.0'
           channel: 'stable'
-      - name: Fix SDK
-        run: |
-          flutter create . --platforms android --overwrite
-          sed -i 's/flutter.minSdkVersion/23/g' android/app/build.gradle
-          sed -i 's/minSdkVersion 16/minSdkVersion 23/g' android/app/build.gradle
-          sed -i 's/minSdkVersion 19/minSdkVersion 23/g' android/app/build.gradle
       - run: |
           flutter pub get
           flutter build apk --release
       - uses: actions/upload-artifact@v4
         with:
-          name: SIM-Bridge-APK
+          name: Mobile-Bridge-APK
           path: build/app/outputs/flutter-apk/app-release.apk
