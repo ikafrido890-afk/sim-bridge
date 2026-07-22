@@ -11,7 +11,7 @@ jobs:
           channel: 'stable'
       - name: Fix and Build
         run: |
-          flutter create. --project-name mobile_bridge --platforms android --overwrite
+          flutter create . --project-name mobile_bridge --platforms android --overwrite
           flutter pub get
           flutter build apk --release
       - uses: actions/upload-artifact@v4
