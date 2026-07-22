@@ -9,10 +9,12 @@ jobs:
         with:
           flutter-version: '3.22.0'
           channel: 'stable'
-      - run: |
+      - name: Build APK
+        run: |
           flutter pub get
           flutter build apk --release
-      - uses: actions/upload-artifact@v4
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
           name: Mobile-Bridge-APK
           path: build/app/outputs/flutter-apk/app-release.apk
